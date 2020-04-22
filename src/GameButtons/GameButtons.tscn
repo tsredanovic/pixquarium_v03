@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GameButtons/ButtonMenu.png" type="Texture" id=1]
+[ext_resource path="res://GameButtons/GameButtons.gd" type="Script" id=2]
+
+[node name="GameButtons" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonMenu" type="TextureButton" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonRod" type="TextureButton" parent="."]
+margin_left = 2.0
+margin_top = 36.0
+margin_right = 34.0
+margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonBait" type="TextureButton" parent="."]
+margin_left = 36.0
+margin_top = 36.0
+margin_right = 68.0
+margin_bottom = 68.0
+
+[node name="ButtonLocation" type="TextureButton" parent="."]
+margin_left = 70.0
+margin_top = 36.0
+margin_right = 102.0
+margin_bottom = 68.0
+[connection signal="pressed" from="ButtonMenu" to="." method="_on_ButtonMenu_pressed"]
+[connection signal="pressed" from="ButtonRod" to="." method="_on_ButtonRod_pressed"]
+[connection signal="pressed" from="ButtonBait" to="." method="_on_ButtonBait_pressed"]
+[connection signal="pressed" from="ButtonLocation" to="." method="_on_ButtonLocation_pressed"]
