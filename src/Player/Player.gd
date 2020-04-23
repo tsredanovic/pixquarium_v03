@@ -6,7 +6,8 @@ enum {
 	STATE_READY,
 	STATE_CAST,
 	STATE_FISH,
-	STATE_HOOKED
+	STATE_HOOKED,
+	STATE_RESULT
 }
 var current_state = null
 
@@ -30,9 +31,8 @@ func state_idle():
 	current_state = STATE_IDLE
 	# Handle animation
 	player_ap.play("Idle")
-	# Stop timers
-	fish_timer.stop()
-	hooked_timer.stop()
+	# Hide result
+	$ResultPanel.hide()
 
 func state_ready():
 	# Set state
@@ -50,7 +50,7 @@ func state_cast():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	# When `Cast` animation ends transition to `STATE_FISH`
-	if anim_name == 'Cast':
+	if current_state == STATE_CAST:
 		state_fish()
 
 func state_fish():
@@ -82,6 +82,25 @@ func _on_HookTimer_timeout():
 	# When `hoked_timer` timeouts transition to `STATE_FISH`
 	state_fish()
 
+func state_result(fish_caught):
+	# Set state
+	print('State Result')
+	current_state = STATE_HOOKED
+	# Handle animation
+	player_ap.stop()
+	# Stop timers
+	fish_timer.stop()
+	hooked_timer.stop()
+	# Show result panel
+	$ResultPanel/Label.text = 'Caught' if fish_caught else 'Failed'
+	$ResultPanel.show()
+
+func _on_ResultPanel_gui_input(event):
+	# When `mouse_pressed` on `ResultPanel` transition to `STATE_IDLE`
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			state_idle()
+
 func mouse_pressed():
 	match current_state:
 		STATE_IDLE:
@@ -91,13 +110,11 @@ func mouse_pressed():
 			# When `mouse_pressed` on `STATE_READY` transition to `STATE_CAST`
 			state_cast()
 		STATE_FISH:
-			# When `mouse_pressed` on `STATE_FISH` transition to `STATE_IDLE`
-			print('FISH GOT AWAY!')
-			state_idle()
+			# When `mouse_pressed` on `STATE_FISH` transition to `STATE_RESULT` with fish_caught=false
+			state_result(false)
 		STATE_HOOKED:
-			# When `mouse_pressed` on `STATE_HOOKED` transition to `STATE_IDLE`
-			print('FISH COUGHT!')
-			state_idle()
+			# When `mouse_pressed` on `STATE_FISH` transition to `STATE_RESULT` with fish_caught=true
+			state_result(true)
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
