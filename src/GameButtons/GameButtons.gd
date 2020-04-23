@@ -1,38 +1,46 @@
 extends Control
 
 
-onready var button_menu = $ButtonMenu
-
-onready var menu_buttons = [$ButtonRod, $ButtonBait, $ButtonLocation]
-var menu_buttons_visibility = null
-
-enum ROD {
-	BLACK = 1,
-	GREEN = 2
-}
-var rod_textures = {
+# MAIN ENUMS
+onready var ROD = get_tree().get_root().get_node("Main").ROD
+onready var rod_textures = {
 	ROD.BLACK: "GameButtons/ButtonRodBlack.png",
 	ROD.GREEN: "GameButtons/ButtonRodGreen.png"
 }
 
-enum BAIT {
-	BLACK = 1,
-	GREEN = 2
-}
-var bait_textures = {
+onready var BAIT = get_tree().get_root().get_node("Main").BAIT
+onready var bait_textures = {
 	BAIT.BLACK: "GameButtons/ButtonBaitBugBlack.png",
 	BAIT.GREEN: "GameButtons/ButtonBaitBugGreen.png"
 }
 
-enum LOCATION {
-	POND = 1,
-	HUT = 2
-}
-var location_textures = {
+onready var LOCATION = get_tree().get_root().get_node("Main").LOCATION
+onready var location_textures = {
 	LOCATION.POND: "GameButtons/ButtonLocationPond.png",
 	LOCATION.HUT: "GameButtons/ButtonLocationHut.png"
 }
 
+
+# BUTTONS
+onready var button_menu = $ButtonMenu
+
+onready var menu_buttons = [$ButtonRod, $ButtonBait, $ButtonLocation]
+onready var menu_buttons_visibility = null
+
+
+# INIT
+func init(rod, bait, location):
+	$ButtonRod.set_normal_texture(load(rod_textures[rod]))
+	$ButtonBait.set_normal_texture(load(bait_textures[bait]))
+	$ButtonLocation.set_normal_texture(load(location_textures[location]))
+
+
+# READY
+func _ready():
+	hide_menu_buttons()
+
+
+###
 func hide_menu_buttons():
 	for menu_button in menu_buttons:
 		menu_button.visible = false
@@ -42,14 +50,6 @@ func show_menu_buttons():
 	for menu_button in menu_buttons:
 		menu_button.visible = true
 	menu_buttons_visibility = true
-
-func _ready():
-	hide_menu_buttons()
-
-func init(rod, bait, location):
-	$ButtonRod.set_normal_texture(load(rod_textures[rod]))
-	$ButtonBait.set_normal_texture(load(bait_textures[bait]))
-	$ButtonLocation.set_normal_texture(load(location_textures[location]))
 
 func _on_ButtonMenu_pressed():
 	print("Menu button pressed")

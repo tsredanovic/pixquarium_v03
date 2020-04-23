@@ -1,6 +1,7 @@
 extends Node2D
 
-# States
+
+# PLAYER STATES
 enum {
 	STATE_IDLE,
 	STATE_READY,
@@ -11,20 +12,24 @@ enum {
 }
 var current_state = null
 
-# Animations
+# PLAYER ANIMATIONS
 onready var player_ap = $AnimationPlayer
 onready var player_sprite = $Sprite
 
-# Timers
+# PLAYER TIMERS
 onready var fish_timer = $FishTimer
 var MIN_TIME_FISH_STATE = 3
 var MAX_TIME_FISH_STATE = 6
 onready var hooked_timer = $HookTimer
 var TIME_HOOKED_STATE = 2.5
 
+
+# READY
 func _ready():
 	state_idle()
 
+
+###
 func state_idle():
 	# Set state
 	print('State Idle')
