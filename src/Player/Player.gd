@@ -48,7 +48,7 @@ func state_cast():
 	# Handle animation
 	player_ap.play("Cast")
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	# When `Cast` animation ends transition to `STATE_FISH`
 	if current_state == STATE_CAST:
 		state_fish()
@@ -116,7 +116,7 @@ func mouse_pressed():
 			# When `mouse_pressed` on `STATE_FISH` transition to `STATE_RESULT` with fish_caught=true
 			state_result(true)
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
+func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			mouse_pressed()
