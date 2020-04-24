@@ -36,7 +36,7 @@ func state_idle():
 	current_state = STATE_IDLE
 	# Handle animation
 	player_ap.play("Idle")
-	# Hide result
+	# Handle ResultPanel
 	$ResultPanel.hide()
 
 func state_ready():
@@ -45,6 +45,9 @@ func state_ready():
 	current_state = STATE_READY
 	# Handle animation
 	player_ap.play("Ready")
+	# Handle AimBar
+	$AimBar.show()
+	$AimBar/AimBarPointer.start_moving()
 
 func state_cast():
 	# Set state
@@ -52,6 +55,8 @@ func state_cast():
 	current_state = STATE_CAST
 	# Handle animation
 	player_ap.play("Cast")
+	# Handle AimBar
+	$AimBar/AimBarPointer.stop_moving()
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	# When `Cast` animation ends transition to `STATE_FISH`
@@ -68,6 +73,8 @@ func state_fish():
 	# Start `fish_timer`
 	fish_timer.wait_time = rand_range(MIN_TIME_FISH_STATE, MAX_TIME_FISH_STATE)
 	fish_timer.start()
+	# Handle AimBar
+	$AimBar.hide()
 
 func _on_FishTimer_timeout():
 	# When `fish_timer` timeouts transition to `STATE_HOOKED`
@@ -96,9 +103,11 @@ func state_result(fish_caught):
 	# Stop timers
 	fish_timer.stop()
 	hooked_timer.stop()
-	# Show result panel
-	$ResultPanel/Label.text = 'Caught' if fish_caught else 'Failed'
+	# Handle ResultPanel
+	$ResultPanel/Label.text = 'Score: %s' % str(int($AimBar/AimBarPointer.position.x)) if fish_caught else 'Failed'
 	$ResultPanel.show()
+	# Handle AimBar
+	$AimBar/AimBarPointer.reset_position()
 
 func _on_ResultPanel_gui_input(event):
 	# When `mouse_pressed` on `ResultPanel` transition to `STATE_IDLE`

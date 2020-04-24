@@ -11,8 +11,16 @@ onready var acceleration = 2.5
 onready var direction = DIRECTIONS.RIGHT
 onready var start_position = self.position.x
 onready var end_position = start_position + PATH_LENGTH
+onready var move = false
 
+func start_moving():
+	move = true
 
+func stop_moving():
+	move = false
+
+func reset_position():
+	self.position.x = start_position
 
 func _process(delta):
 	if self.position.x >= end_position:
@@ -21,6 +29,8 @@ func _process(delta):
 	elif self.position.x <= start_position:
 		self.position.x = start_position
 		direction = DIRECTIONS.RIGHT
+	if not move:
+		return
 
 	var move_by = speed * delta
 	var extra_movement = (self.position.x / PATH_LENGTH) * acceleration
