@@ -100,8 +100,10 @@ anims/Idle = SubResource( 3 )
 anims/Ready = SubResource( 4 )
 
 [node name="FishTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="HookTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 72, 70 )
@@ -130,6 +132,9 @@ anchor_bottom = 1.0
 margin_left = 7.0
 margin_top = -21.0
 text = "Lorem ipsum 123"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AimBar" type="Sprite" parent="."]
 visible = false
