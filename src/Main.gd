@@ -23,6 +23,12 @@ onready var state = {
 	"location": LOCATION.HUT
 }
 
+# INSTANCE GAME
+func instance_game():
+	instance_game_buttons()
+	instance_game_location()
+	instance_player()
+
 func instance_game_buttons():
 	var game_buttons = preload("res://GameButtons/GameButtons.tscn").instance()
 	add_child(game_buttons)
@@ -38,6 +44,4 @@ func instance_player():
 	add_child(player)
 
 func _ready():
-	instance_game_buttons()
-	instance_game_location()
-	instance_player()
+	instance_game()

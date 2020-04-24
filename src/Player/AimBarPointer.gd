@@ -32,9 +32,8 @@ func _process(delta):
 	if not move:
 		return
 
-	var move_by = speed * delta
-	var extra_movement = (self.position.x / PATH_LENGTH) * acceleration
-	move_by += extra_movement
+	
+	var move_by = speed * delta + (self.position.x / PATH_LENGTH) * acceleration
 	if direction == DIRECTIONS.RIGHT:
 		self.position.x += move_by
 	else:
