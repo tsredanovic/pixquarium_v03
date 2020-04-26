@@ -20,11 +20,17 @@ enum LOCATION {
 onready var state = {
 	"rod": ROD.BLACK,
 	"bait": BAIT.GREEN,
-	"location": LOCATION.HUT
+	"location": LOCATION.POND
 }
+
+# INSTANCE POUCH
+func instance_pouch():
+	var pouch = preload("res://Pouch/Pouch.tscn").instance()
+	add_child(pouch)
 
 # INSTANCE GAME
 func instance_game():
+	instance_pouch()
 	instance_game_buttons()
 	instance_game_location()
 	instance_player()
@@ -53,6 +59,7 @@ func instance_back_button():
 func instance_shop_rod():
 	var shop_rod = preload("res://Shops/ShopRod.tscn").instance()
 	add_child(shop_rod)
+	instance_pouch()
 	instance_back_button()
 
 # KILL ALL CHILDREN
