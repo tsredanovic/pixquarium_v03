@@ -31,6 +31,7 @@ onready var menu_buttons_visibility = null
 # INIT
 func init(rod, bait, location):
 	$ButtonRod.set_normal_texture(load(rod_textures[rod]))
+	$ButtonRod.connect("pressed", get_tree().get_root().get_node("Main"), "_on_ButtonRod_pressed")
 	$ButtonBait.set_normal_texture(load(bait_textures[bait]))
 	$ButtonLocation.set_normal_texture(load(location_textures[location]))
 
@@ -57,14 +58,3 @@ func _on_ButtonMenu_pressed():
 		show_menu_buttons()
 	else:
 		hide_menu_buttons()
-
-func _on_ButtonRod_pressed():
-	print("Rod button pressed")
-
-
-func _on_ButtonBait_pressed():
-	print("Bait button pressed")
-
-
-func _on_ButtonLocation_pressed():
-	print("Location button pressed")
