@@ -20,7 +20,7 @@ enum LOCATION {
 onready var state = {
 	"rod": ROD.BLACK,
 	"bait": BAIT.GREEN,
-	"location": LOCATION.POND
+	"location": LOCATION.HUT
 }
 
 # INSTANCE POUCH
