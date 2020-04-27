@@ -16,10 +16,33 @@ enum LOCATION {
 	HUT = 2
 }
 
+enum CURRENCY {
+	COIN = 1,
+	PEARL = 2
+}
+
 # GAME STATE
 onready var state = {
+	"rods": [
+	{
+		"id": ROD.BLACK,
+		"texture": "GameButtons/ButtonRodBlack.png",
+		"name": "Branch",
+		"price": 0,
+		"currency": CURRENCY.COIN,
+		"owned": true
+	},
+	{
+		"id": ROD.GREEN,
+		"texture": "GameButtons/ButtonRodGreen.png",
+		"name": "Standard Rod",
+		"price": 100,
+		"currency": CURRENCY.COIN,
+		"owned": false
+	}
+],
 	"rod": ROD.BLACK,
-	"bait": BAIT.GREEN,
+	"bait": BAIT.BLACK,
 	"location": LOCATION.HUT
 }
 
@@ -59,6 +82,7 @@ func instance_back_button():
 func instance_shop_rod():
 	var shop_rod = preload("res://Shops/ShopRod.tscn").instance()
 	add_child(shop_rod)
+	shop_rod.init(state["rod"])
 	instance_pouch()
 	instance_back_button()
 
